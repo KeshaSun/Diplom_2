@@ -8,7 +8,6 @@ public class OrderStellar {
 
     private static final String GET_INGREDIENTS = "/api/ingredients";
     private static final String ORDER_FROM_USER = "/api/orders";
-    private static final String GET_ALL_ORDER = "/api/orders/all";
 
     @Step("GET /api/ingredients - получение ингредиентов")
     public Response getIngredients(){
