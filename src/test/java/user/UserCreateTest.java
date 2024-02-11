@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.example.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -27,7 +28,7 @@ public class UserCreateTest {
     }
 
     @Test
-    @DisplayName("Создание уникального пользователя - возможно")
+    @DisplayName("Создание нового пользователь")
     public void createUniqueUserPossible(){
         Response response = userStellar.create(user);
         response
@@ -46,7 +47,7 @@ public class UserCreateTest {
         User userSame = new User(user);
 
         Response responseFirst = userStellar.create(user);
-        assertEquals("Неверный статус код ответа", 200, responseFirst.statusCode());
+        assertEquals("Неверный статус код ответа", SC_OK, responseFirst.statusCode());
         Response responseSecond = userStellar.create(userSame);
         responseSecond
                 .then()
