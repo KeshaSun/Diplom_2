@@ -1,4 +1,4 @@
-package org.example.models;
+package edu.practicum.models;
 import lombok.*;
 
 @Getter

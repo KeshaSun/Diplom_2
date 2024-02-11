@@ -3,19 +3,19 @@ package user;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.example.models.User;
+import edu.practicum.models.User;
 import org.apache.http.HttpStatus;
-import org.example.user.UserStellar;
+import edu.practicum.user.UserStellar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.apache.http.HttpStatus.SC_OK;
-import static org.example.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
+import static edu.practicum.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
-import static org.example.user.UserGenerator.randomUser;
+import static edu.practicum.user.UserGenerator.randomUser;
 
 public class UserCreateTest {
 
@@ -29,7 +29,7 @@ public class UserCreateTest {
 
     @Test
     @DisplayName("Создание нового пользователь")
-    public void createUniqueUserPossible(){
+    public void createUniqueUserOkTest(){
         Response response = userStellar.create(user);
         response
                 .then()
@@ -43,7 +43,7 @@ public class UserCreateTest {
 
     @Test
     @DisplayName("Создание пользователя, который уже существует - не возможно")
-    public void createSameUserImpossible(){
+    public void createSameUserNotOkTest(){
         User userSame = new User(user);
 
         Response responseFirst = userStellar.create(user);
@@ -58,7 +58,7 @@ public class UserCreateTest {
 
     @Test
     @DisplayName("Создание пользователя с пустым обязательным полем - невозможно")
-    public void createUserWithEmptyFieldImpossible(){
+    public void createUserWithEmptyFieldNotOkTest(){
         userStellar.create(user);
         User userWithEmptyEmail = new User(user);
         userWithEmptyEmail.setEmail("");

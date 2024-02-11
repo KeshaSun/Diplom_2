@@ -3,15 +3,15 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.example.models.User;
-import org.example.models.UserCred;
-import org.example.user.UserStellar;
+import edu.practicum.models.User;
+import edu.practicum.models.UserCred;
+import edu.practicum.user.UserStellar;
 import org.hamcrest.core.IsEqual;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.example.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
-import static org.example.user.UserGenerator.randomUser;
+import static edu.practicum.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
+import static edu.practicum.user.UserGenerator.randomUser;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -28,8 +28,8 @@ public class UserLoginTest {
     }
 
     @Test
-    @DisplayName("Логин под существующим пользователем - возможен")
-    public void loginRealUserPossible(){
+    @DisplayName("Логин под существующим пользователем - ок")
+    public void loginRealUserOkTest(){
 
         Response response = userStellar.login(userForLogin);
         response
@@ -43,8 +43,8 @@ public class UserLoginTest {
     }
 
     @Test
-    @DisplayName("Логин с неверным логином - не возможен")
-    public void loginUnrealEmailImpossible(){
+    @DisplayName("Логин с неверным логином - не ок")
+    public void loginUnrealEmailNotOkTest(){
         userForLogin.setEmail("skbr-@yandex.ru");
 
         Response response = userStellar.login(userForLogin);
@@ -56,8 +56,8 @@ public class UserLoginTest {
     }
 
     @Test
-    @DisplayName("Логин с неверным паролем - не возможен")
-    public void loginUnrealPasswordImpossible(){
+    @DisplayName("Логин с неверным паролем - не ок")
+    public void loginUnrealPasswordNotOkTest(){
         userForLogin.setPassword("dornyve34");
 
         Response response = userStellar.login(userForLogin);

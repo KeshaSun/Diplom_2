@@ -1,4 +1,4 @@
-package org.example.models;
+package edu.practicum.models;
 import lombok.*;
 
 @Getter
@@ -15,5 +15,9 @@ public class User {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.name = user.getName();
+    }
+
+    public User() {
+
     }
 }

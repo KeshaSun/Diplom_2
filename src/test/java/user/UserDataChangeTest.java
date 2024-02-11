@@ -4,14 +4,14 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.example.models.User;
-import org.example.user.UserStellar;
+import edu.practicum.models.User;
+import edu.practicum.user.UserStellar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.example.Utils.Utils.randomString;
-import static org.example.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
-import static org.example.user.UserGenerator.randomUser;
+import static edu.practicum.utils.Utils.randomString;
+import static edu.practicum.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
+import static edu.practicum.user.UserGenerator.randomUser;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class UserDataChangeTest {
@@ -27,7 +27,7 @@ public class UserDataChangeTest {
     }
 
     @Test
-    @DisplayName("Изменение email пользователя с авторизацией - возможно")
+    @DisplayName("Изменение email пользователя + авторизация - ок")
     public void changeEmailWithLoginPossible(){
         String token = userStellar.getToken(user);
         user.setEmail(faker.internet().emailAddress());
@@ -42,8 +42,8 @@ public class UserDataChangeTest {
     }
 
     @Test
-    @DisplayName("Изменение password пользователя с авторизацией - возможно")
-    public void changePasswordWithLoginPossible(){
+    @DisplayName("Изменение пароля пользователя + авторизация - ок")
+    public void changePasswordWithLoginOkTest(){
         String token = userStellar.getToken(user);
         user.setPassword(faker.bothify("56???????"));
         Response response = userStellar.ChangingDataWithAuthorition(user, token);
@@ -57,8 +57,8 @@ public class UserDataChangeTest {
     }
 
     @Test
-    @DisplayName("Изменение name пользователя с авторизацией - возможно")
-    public void changeNameWithLoginPossible(){
+    @DisplayName("Изменение name пользователя + авторизация - ок")
+    public void changeNameWithLoginOkTest(){
         String token = userStellar.getToken(user);
         user.setName(randomString(5));
         Response response = userStellar.ChangingDataWithAuthorition(user, token);
@@ -72,8 +72,8 @@ public class UserDataChangeTest {
     }
 
     @Test
-    @DisplayName("Изменение email пользователя без авторизации - невозможно")
-    public void changeEmailWithoutLoginImpossible(){
+    @DisplayName("Изменение почты пользователя - авторизация - не ок")
+    public void changeEmailWithoutLoginNotOkTest(){
         User user2 = new User(user);
         user2.setEmail(faker.internet().emailAddress());
 
@@ -86,8 +86,8 @@ public class UserDataChangeTest {
     }
 
     @Test
-    @DisplayName("Изменение password пользователя без авторизации - невозможно")
-    public void changePasswordWithoutLoginImpossible(){
+    @DisplayName("Изменение пароля пользователя - авторизация - не ок")
+    public void changePasswordWithoutLoginNotOkTest(){
         User user2 = new User(user);
         user2.setPassword(faker.bothify("56???????"));
 
@@ -100,8 +100,8 @@ public class UserDataChangeTest {
     }
 
     @Test
-    @DisplayName("Изменение name пользователя без авторизации - невозможно")
-    public void changeNameWithoutLoginImpossible(){
+    @DisplayName("Изменение имени пользователя - авторизация - не ок")
+    public void changeNameWithoutLoginNotOkTest(){
         User user2 = new User(user);
         user2.setName(randomString(5));
 

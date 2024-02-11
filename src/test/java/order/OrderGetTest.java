@@ -3,16 +3,16 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.example.models.Order;
-import org.example.models.User;
-import org.example.order.OrderStellar;
-import org.example.user.UserStellar;
+import edu.practicum.models.Order;
+import edu.practicum.models.User;
+import edu.practicum.order.OrderStellar;
+import edu.practicum.user.UserStellar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
-import static org.example.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
-import static org.example.user.UserGenerator.randomUser;
+import static edu.practicum.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
+import static edu.practicum.user.UserGenerator.randomUser;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -43,7 +43,7 @@ public class OrderGetTest {
 
     @Test
     @DisplayName("Получение заказов авторизованного пользователя - возможно")
-    public void getOrderFromAuthorizedUserPossible(){
+    public void getOrderFromAuthorizedUserOkTest(){
         String token = userStellar.getToken(user);
 
         Response response = orderStellar.getOrderWithAuthorization(token);
@@ -56,7 +56,7 @@ public class OrderGetTest {
 
     @Test
     @DisplayName("Получение заказов неавторизованного пользователя - невозможно")
-    public void getOrderFromNotAuthorizedUserImpossible(){
+    public void getOrderFromNotAuthorizedUserNotOkTest(){
 
         Response response = orderStellar.getOrderWithoutAuthorization();
         response

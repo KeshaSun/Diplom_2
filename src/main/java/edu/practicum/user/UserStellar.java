@@ -1,17 +1,17 @@
-package org.example.user;
+package edu.practicum.user;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import org.example.models.User;
-import org.example.models.UserCred;
+import edu.practicum.models.User;
+import edu.practicum.models.UserCred;
 import static io.restassured.RestAssured.given;
 
 public class UserStellar {
 
     private static final String CREATE_USER = "/api/auth/register";
-    private static final String LOGIN_USER = "/api/auth/login";
+    private static final String LOGIN = "/api/auth/login";
     private static final String DELETE_CHANGING_USER = "/api/auth/user";
 
-    @Step("Send POST request to api/auth/register - создание пользователя")
+    @Step("POST /api/auth/register - создание пользователя")
     public Response create(User user){
         return given()
                 .header("Content-type", "application/json")
@@ -19,33 +19,33 @@ public class UserStellar {
                 .post(CREATE_USER);
     }
 
-    @Step("Send POST request to api/auth/login - авторизация пользователя c почтой и паролем")
+    @Step("POST /api/auth/login - авторизация пользователя(почта/пароль")
     public Response login(UserCred userCred){
         return given()
                 .header("Content-type", "application/json")
                 .body(userCred)
-                .post(LOGIN_USER);
+                .post(LOGIN);
     }
 
-    @Step("Send POST request to api/auth/login - получение токена у юзера с почтой, паролем и именем")
+    @Step("POST  /api/auth/login - получение токена")
     public String getToken(User user){
         Response response = given()
                 .header("Content-type", "application/json")
                 .body(user)
-                .post(LOGIN_USER);
+                .post(LOGIN);
         return response.jsonPath().getString("accessToken");
     }
 
-    @Step("Send DELETE request to api/auth/user - удаление пользователя")
-    public Response delete(User user){
+    @Step("DELETE /api/auth/user - удаление пользователя")
+    public void delete(User user){
         String token = getToken(user);
-        return given()
+        given()
                 .header("Content-type", "application/json")
                 .header("Authorization", token)
                 .delete(DELETE_CHANGING_USER);
     }
 
-    @Step("Send PATCH request to api/auth/user - изменение данных пользователя с авторизацией")
+    @Step("PATCH /api/auth/user - изменение данных пользователя + авторизация")
     public Response ChangingDataWithAuthorition(User user, String token){
         return given()
                 .header("Content-type", "application/json")
@@ -54,7 +54,7 @@ public class UserStellar {
                 .patch(DELETE_CHANGING_USER);
     }
 
-    @Step("Send PATCH request to api/auth/user - изменение данных пользователя без авторизации")
+    @Step("PATCH /api/auth/user - изменение данных пользователя")
     public Response ChangingDataWithoutLogin(User user){
         return given()
                 .header("Content-type", "application/json")

@@ -1,8 +1,8 @@
-package org.example.user;
+package edu.practicum.user;
 
 import com.github.javafaker.Faker;
-import org.example.models.User;
-import static org.example.Utils.Utils.randomString;
+import edu.practicum.models.User;
+import static edu.practicum.utils.Utils.randomString;
 
 public class UserGenerator {
 

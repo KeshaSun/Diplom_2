@@ -4,16 +4,16 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.example.models.Order;
-import org.example.models.User;
-import org.example.order.OrderStellar;
-import org.example.user.UserStellar;
+import edu.practicum.models.Order;
+import edu.practicum.models.User;
+import edu.practicum.order.OrderStellar;
+import edu.practicum.user.UserStellar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
-import static org.example.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
-import static org.example.user.UserGenerator.randomUser;
+import static edu.practicum.models.StellarBurgersUrl.STELLAR_BURGERS_URL;
+import static edu.practicum.user.UserGenerator.randomUser;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -36,7 +36,7 @@ public class OrderCreateTest {
 
     @Test
     @DisplayName("Создание заказа с авторизацией")
-    public void createOrderWithLoginPossible(){
+    public void createOrderWithLoginOk(){
         ingredients = List.of(id[4].trim(), id[3].trim(), id[2].trim());
         String[] arrayIngredients = ingredients.toArray(new String[0]);
         Order order = new Order(arrayIngredients);
@@ -52,7 +52,7 @@ public class OrderCreateTest {
 
     @Test
     @DisplayName("Создание заказа без авторизации - невозможно")
-    public void createOrderWithoutLoginPpossible(){
+    public void createOrderWithoutLoginOk(){
         ingredients = List.of(id[4].trim(), id[3].trim(), id[2].trim());
         String[] arrayIngredients = ingredients.toArray(new String[0]);
         Order order = new Order(arrayIngredients);
@@ -68,7 +68,7 @@ public class OrderCreateTest {
 
     @Test
     @DisplayName("Создание заказа без ингредиентов - невозможно")
-    public void createOrderWithoutIngredientsImpossible(){
+    public void createOrderWithoutIngredientsNotOkTest(){
         String[] ingredient = new String[0];
         Order order = new Order(ingredient);
 
@@ -82,7 +82,7 @@ public class OrderCreateTest {
 
     @Test
     @DisplayName("Создание заказа с неверным хешем ингредиентов - невозможно")
-    public void createOrderWithUnrealHashImpossible(){
+    public void createOrderWithUnrealHashNotOkTest(){
         String id = faker.letterify("????????????????????");
         String[] ingredientFaker = new String[]{id};
         Order order = new Order(ingredientFaker);
