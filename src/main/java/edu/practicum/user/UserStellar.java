@@ -14,6 +14,7 @@ public class UserStellar {
     @Step("POST /api/auth/register - создание пользователя")
     public Response create(User user){
         return given()
+                .log().all()
                 .header("Content-type", "application/json")
                 .body(user)
                 .post(CREATE_USER);
@@ -22,6 +23,7 @@ public class UserStellar {
     @Step("POST /api/auth/login - авторизация пользователя(почта/пароль")
     public Response login(UserCred userCred){
         return given()
+                .log().all()
                 .header("Content-type", "application/json")
                 .body(userCred)
                 .post(LOGIN);
@@ -30,6 +32,7 @@ public class UserStellar {
     @Step("POST  /api/auth/login - получение токена")
     public String getToken(User user){
         Response response = given()
+                .log().all()
                 .header("Content-type", "application/json")
                 .body(user)
                 .post(LOGIN);
@@ -40,6 +43,7 @@ public class UserStellar {
     public void delete(User user){
         String token = getToken(user);
         given()
+                .log().all()
                 .header("Content-type", "application/json")
                 .header("Authorization", token)
                 .delete(DELETE_CHANGING_USER);
@@ -48,6 +52,7 @@ public class UserStellar {
     @Step("PATCH /api/auth/user - изменение данных пользователя + авторизация")
     public Response ChangingDataWithAuthorition(User user, String token){
         return given()
+                .log().all()
                 .header("Content-type", "application/json")
                 .header("Authorization", token)
                 .body(user)
@@ -57,6 +62,7 @@ public class UserStellar {
     @Step("PATCH /api/auth/user - изменение данных пользователя")
     public Response ChangingDataWithoutLogin(User user){
         return given()
+                .log().all()
                 .header("Content-type", "application/json")
                 .body(user)
                 .patch(DELETE_CHANGING_USER);
