@@ -1,8 +1,7 @@
 package edu.practicum.models;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @Builder
 public class User {

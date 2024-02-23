@@ -18,10 +18,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class OrderGetTest {
 
-    List<String> ingredients;
-    OrderStellar orderStellar = new OrderStellar();
-    UserStellar userStellar = new UserStellar();
-    User user = randomUser();
+   private List<String> ingredients;
+    private final OrderStellar orderStellar = new OrderStellar();
+    private final UserStellar userStellar = new UserStellar();
+    private final User user = randomUser();
 
     @Before
     public void setUp(){
@@ -49,7 +49,9 @@ public class OrderGetTest {
         Response response = orderStellar.getOrderWithAuthorization(token);
         response
                 .then()
+                .assertThat()
                 .statusCode(HttpStatus.SC_OK)
+                .and()
                 .body("success", equalTo(true))
                 .body("orders", notNullValue());
     }
@@ -61,7 +63,9 @@ public class OrderGetTest {
         Response response = orderStellar.getOrderWithoutAuthorization();
         response
                 .then()
+                .assertThat()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
+                .and()
                 .body("message", equalTo("You should be authorised"));
     }
 

@@ -28,7 +28,7 @@ public class UserDataChangeTest {
 
     @Test
     @DisplayName("Изменение email пользователя + авторизация - ок")
-    public void changeEmailWithLoginPossible(){
+    public void changeEmailWithLoginOkTest(){
         String token = userStellar.getToken(user);
         user.setEmail(faker.internet().emailAddress());
 
